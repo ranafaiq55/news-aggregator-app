@@ -1,6 +1,7 @@
 ## Running Locally
 
 npm install
+
 npm run dev
 
 ## Running in Docker

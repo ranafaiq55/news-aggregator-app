@@ -14,5 +14,5 @@ export interface ArticleFilters {
   toDate?: string;
   sources?: string[];
   category?: string;
-  authors?: string[]
+  author?: string
 }

@@ -1,15 +1,12 @@
-## 🚀 Running Locally
+## Running Locally
 
-```bash
 npm install
 npm run dev
-```
 
-## 🐳 Docker Setup
+## Running in Docker
 
-```bash
-docker build -t news-frontend .
-docker run -p 5173:5173 news-frontend
-```
+### Build Docker image:
 
----
+step 1 - docker build -t news-aggregator-app .
+
+step 2 - docker run -p 5173:80 news-aggregator-app

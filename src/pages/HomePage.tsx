@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useArticles } from '../hooks/useArticles';
 import { type ArticleFilters } from '../api/types';
 import ArticleList from '../components/ArticleList';
+import Spinner from '../components/Spinner';
+import SkeletonCard from '../components/SkeletonCard';
 
 const categories = ['business', 'entertainment', 'health', 'science', 'sports', 'technology'];
 
 const HomePage: React.FC = () => {
   const [filters, setFilters] = useState<ArticleFilters>({ query: 'technology' });
-  const { articles, loading, error } = useArticles(filters);
+  const { articles, loading, error } = useArticles({ ...filters });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -76,10 +78,18 @@ const HomePage: React.FC = () => {
         ))}
       </div>
 
-      {loading && <p>Loading articles...</p>}
       {error && <p className="text-red-600">Error: {error}</p>}
 
-      <ArticleList articles={articles} />
+      {loading && (
+        <div className="space-y-4">
+          {[...Array(4)].map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      )}
+
+      {!loading && <ArticleList articles={articles} />}
+      {loading && <Spinner />}
     </main>
   );
 };

@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { type Article,type ArticleFilters } from '../types';
+import { GUARDIAN_BASE_URL } from '../../constants';
 
 const GUARDIAN_API_KEY = import.meta.env.VITE_GUARDIAN_API_KEY;
 
 export const fetchFromGuardian = async (filters: ArticleFilters): Promise<Article[]> => {
   const { query = '', fromDate, toDate, category } = filters;
   const searchTerm = category ? `${query} ${category}`.trim() : query;
-  let url = `https://content.guardianapis.com/search?q=${encodeURIComponent(searchTerm)}&api-key=${GUARDIAN_API_KEY}&show-fields=trailText,byline,publication`;
+  let url = `${GUARDIAN_BASE_URL}/search?q=${encodeURIComponent(searchTerm)}&api-key=${GUARDIAN_API_KEY}&show-fields=trailText,byline,publication`;
   if (fromDate) url += `&from-date=${fromDate}`;
   if (toDate) url += `&to-date=${toDate}`;
 

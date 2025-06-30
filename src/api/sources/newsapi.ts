@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { type Article,type ArticleFilters } from '../types';
+import { NEWSAPI_BASE_URL } from '../../constants';
 
 const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 
 export const fetchFromNewsAPI = async (filters: ArticleFilters): Promise<Article[]> => {
   const { query = '', fromDate, toDate, category } = filters;
   const searchTerm = category ? `${query} ${category}`.trim() : query;
-  let url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(searchTerm)}&apiKey=${NEWS_API_KEY}`;
+  let url = `${NEWSAPI_BASE_URL}?q=${encodeURIComponent(searchTerm)}&apiKey=${NEWS_API_KEY}`;
   if (fromDate) url += `&from=${fromDate}`;
   if (toDate) url += `&to=${toDate}`;
 
